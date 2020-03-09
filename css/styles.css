@@ -1,0 +1,87 @@
+/*CSS Style Sheet*/
+
+#main-wrapper {
+	width: 80%;
+	margin: 0 auto;
+	background: white;
+	padding: 5px;
+	border-radius: 10px;
+	border: 2px solid #2c3e50;
+}
+
+.uncg {
+	width: 200px;
+	text-align: center;
+}
+
+.loginform {
+	width: 80%;
+	margin: 0 auto;
+	font-weight: bold;
+}
+
+.loginform label {
+	font-weight: bold;
+}
+
+.inputvalues {
+	width: 100%;
+	margin: 0 auto;
+	padding: 5px;
+}
+
+#add_button {
+	background-color: #27ae60;
+	color: white;
+	margin: 10px auto;
+	padding: 10px;
+	text-align: center;
+	width: 60%;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#update_button {
+	background-color: #899cf0;
+	color: white;
+	margin: 10px auto;
+	padding: 10px;
+	text-align: center;
+	width: 60%;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#delete_button {
+	background-color: #b80f0a;
+	color: white;
+	margin: 10px auto;
+	padding: 10px;
+	text-align: center;
+	width: 60%;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#display_button {
+	background-color: #ff6600;
+	color: white;
+	margin: 10px auto;
+	padding: 10px;
+	text-align: center;
+	width: 60%;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#back_button {
+	background-color: #ff6600;
+	color: white;
+	margin: 10px auto;
+	padding: 3px;
+	text-align: center;
+	width: 15%;
+	font-size: 12px;
+	font-weight: bold;
+}
+ 
