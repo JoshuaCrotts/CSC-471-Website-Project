@@ -15,7 +15,10 @@
 				<h2>Employee Entry Form</h2>
 				<img src="res/title_image.png" action="employee_insert.php" class="uncg"/>
 			</center>
-			<form class="loginform" method="post">
+			<form action="employee_insert" class="loginform" method="post">
+			<label>Social Security Number (SSN):</label><br>
+				<input name="ssn" type="text" class="inputvalues" placeholder="Type your SSN" required/><br><br>
+				
 				<label>First Name:</label><br>
 				<input name="fname" type="text" class="inputvalues" placeholder="Type your first name" required/><br><br>
 				
@@ -25,6 +28,12 @@
 				<label>Last Name:</label><br>
 				<input name="lname" type="text" class="inputvalues" placeholder="Type your last name" required/><br><br>
 				
+				<label>Address:</label><br>
+				<input name="address" type="text" class="inputvalues" placeholder="Type your address" /><br><br>
+				
+				<label>Phone Number:</label><br>
+				<input name="phoneno" type="text" class="inputvalues" placeholder="Type your phone number" /><br><br>
+				
 				<center>
 					<input name="submit_btn" type="submit" id="add_button" value="Add Employee" required/><br>
 				</center>
@@ -33,26 +42,26 @@
 			
 			<?php
 				if(isset($_POST['submit_btn'])) {
-					//	Grab the three values from the fields.
+					//	Grab the input values from the fields.
+					$ssn = $_POST['ssn'];
 					$firstname = $_POST['fname'];
 					$middleinit = $_POST['minit'];
 					$lastname = $_POST['lname'];
+					$address = $_POST['address'];
+					$phonenumber = $_POST['phoneno'];
 					
-					//	Check to see if middle init length is exactly one.
-					if(strlen($middleinit) == 1) {
+					//	TODO: Add value checking.
+					$query = mysqli_prepare($con, "INSERT INTO Employee VALUES(?, ?, ?, ?, ?, ?)");
+					mysqli_stmt_bind_param($query, 'isssss', $ssn, $firstname, $middleinit, $lastname, $address, $phonenumber);
 						
-						$query = "INSERT INTO USERS VALUES(DEFAULT, '$firstname', '$middleinit', '$lastname')";
+					$query_run = mysqli_stmt_execute($query);
 						
-						$query_run = mysqli_query($con, $query);
-						
-						if($query_run) {
-							echo '<script type="text/javascript"> alert("Success!") </script>';
-						} else {
-							echo '<script type="text/javascript"> alert("Error!") </script>';
-						}
+					if($query_run) {
+						echo '<script type="text/javascript"> alert("Success!") </script>';
 					} else {
-						echo '<script type="text/javascript"> alert("Error, the middle initial should be one character only!") </script>';
+						echo '<script type="text/javascript"> alert("Error!") </script>';
 					}
+					
 				}
 			?>
 		</div>

@@ -58,6 +58,7 @@
 			<?
 				if(isset($_POST['submit_table'])) {
 					
+					// TODO: Prepared statement tf out of this
 					$table_name = $_POST['table_select'];
 					
 					$query = "SELECT * FROM " .$table_name;
@@ -79,11 +80,9 @@
 						foreach($row as $cell) {
 							echo "<td>" .$cell. "</td>";
 						}
-						
 						echo "</tr>";
 					}
 					echo "</table>";
-				
 				}
 			?>
 			<input type="submit" id="back_button" value="<< Back" onClick="document.location.href='index.php'"/>
