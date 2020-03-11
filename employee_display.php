@@ -33,15 +33,15 @@
 			<center>
 				<h2>View Employee Records</h2>
 				<img src="res/title_image.png" class="uncg"/><br>
-				Select a Table:
+				<p>Select a table to view:</p>
 				<form action="employee_display.php" method="post">
 					<select name="table_select" id="table_select">  
 						<option value="">--- Select ---</option>  
 						<?
 							// Here, we query the database for the tables.
 							// The user can choose which table they want to view.
-							$sql="SHOW TABLES";
-							$query_res = mysqli_query($con, $sql);
+							$query = "SHOW TABLES";
+							$query_res = mysqli_query($con, $query);
 							if(empty($query_res)) {
 								echo '<script type="text/javascript"> alert("Error querying for tables.") </script>';
 							} else {
