@@ -1,5 +1,14 @@
+<!--
+
+Code is produced and written by Joshua Crotts. This project is for
+CSC - 471: Principles of Database Systems for the Spring 2020 semester
+at the University of North Carolina at Greensboro.
+
+-->
+
 <?php
 	require 'config.php';
+	session_start();
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +42,7 @@
 			}
 		</style>
 	</head>
-	<body style="background-color: #d8d8d8;">
+	<body style="background-color: #d3d3d3;">
 		<div id="main-wrapper">
 			<center>
 				<h2>Update Employee Record</h2>
@@ -42,13 +51,16 @@
 			<center>
 				<p>Select a table you want to update, then choose a specific row to update:</p>
 				<form action="employee_update.php" method="post">
-					<?
-						echo "<select name='table_select' id='table_select'>";
-					?>
+					<select name="table_select" id="table_select">
 						<option value="">--- Select ---</option>  
-						<option value="Employee">Employee</option>
-						<option value="Dependent">Dependent</option>
-						<option value="Project">Project</option>
+						<option value="Employee">Employees</option>
+						<option value="SalaryEmp">Salaried Employees</option>
+						<option value="HourlyEmp">Hourly Employees</option>
+						<option value="Dependent">Dependents</option>
+						<option value="Department">Departments</option>
+						<option value="DepartmentLocation">Department Location</option>
+						<option value="Project">Projects</option>
+						<option value="Works">Works In Relationship</option>
 					</select>  
 					<input type="submit" name="submit_table", value="Select" />
 				</form>				
@@ -56,10 +68,15 @@
 			
 			<?
 				if(isset($_POST['submit_table'])) {
-					$table_name = $_POST['table_select'];
+					
+					// Save the variable for use later.
+					$_SESSION["table_name"] = $_POST['table_select'];
+					$table_name = $_SESSION["table_name"];
+					
 					if(empty($table_name)) {
 						echo '<script type="text/javascript"> alert("Cannot load table name!") </script>';
 					} else {
+						
 						// TODO: Prepared statement tf out of this
 						$query = "SELECT * FROM " .$table_name;
 						$query_res = mysqli_query($con, $query);
@@ -69,7 +86,11 @@
 						
 						// Begin printing out the fields and 
 						// the things they want to update.
-						echo "<br><table><tr>";
+						echo "<br>";
+						
+						echo "<form method='post'>";
+						
+						echo "<table><tr>";
 						
 						// The first column is the checkbox column.
 						echo "<td>Select A Row</td>";
@@ -88,7 +109,7 @@
 						while($row = mysqli_fetch_row($query_res)) {
 							echo "<tr>";
 							
-							echo "<td><input type='radio' name='radio_button' class='inputvalues' value=".$row_index." /></td>";
+							echo "<td><input type='radio' name='radio_button' class='inputvalues' value=" .$row_index. " /></td>";
 							
 							foreach($row as $cell) {
 								echo "<td>" .$cell. "</td>";
@@ -101,9 +122,7 @@
 						echo "</table><br>";
 						
 						echo "<center>";
-						echo "<form method='post'>";
-						echo "<input type='text' name='select_row_btn' value='Select Row' />";
-						echo "<input type='submit' name='table_select_btn' value='$table_name' readonly/>";
+						echo "<input type='submit' name='select_row_btn' value='Select Row' readonly/>";
 						echo "</form>";
 						echo "</center>";
 					}
@@ -111,8 +130,8 @@
 			?>
 			<?
 				if(isset($_POST['select_row_btn'])) {
-					$offset_no = $_POST['select_row_btn'];
-					$table_name = $_POST['table_select_btn'];
+					$offset_no = $_POST['radio_button'];
+					$table_name = $_SESSION["table_name"];
 					
 					if(empty($table_name)) {
 						echo '<script type="text/javascript"> alert("Cannot load table name!") </script>';
@@ -138,7 +157,9 @@
 					$row_index = 1;
 					foreach($row as $cell) {
 						$property = mysqli_fetch_field($col_query_res);
-						if($property->name == 'SSN') {
+						
+						//	If the field is a primary key, we can't update it.
+						if($property->flags & MYSQLI_PRI_KEY_FLAG) {
 							echo "<td><input type='text' name='$row_index' value='" .$cell. "' readonly/></td>";
 						} else {
 							echo "<td><input type='text' name='$row_index' value='" .$cell. "' /></td>";
@@ -149,14 +170,13 @@
 					
 					echo "</tr></table>";
 					echo "<center><input type='submit' name='update_btn' id='update_button' value='Update '" .$table_name."' /></center><br>";
-					echo "<input type='submit' name='table_select_btn' value='$table_name'/>";
 					echo "</form>";
 				}
 			?>
 
 			<?
 				if(isset($_POST['update_btn'])) {
-					$table_name = $_POST['table_select_btn'];
+					$table_name = $_SESSION["table_name"];
 					
 					$col_query = "SELECT * FROM $table_name LIMIT 1";
 					$col_query_res = mysqli_query($con, $col_query);
@@ -171,17 +191,19 @@
 					$prime_field = '';
 					
 					while($property = mysqli_fetch_field($col_query_res)) {
-						//	The first field should always be the primary one.
-						if($row_index == 1) {
-							$prime_field_val = $_POST['1'];
+						
+						//If the field is primary, just keep the old text.
+						if($property->flags & MYSQLI_PRI_KEY_FLAG) {
+							$prime_field_val = $_POST[$row_index];
 							$prime_field = $property->name;
 							$row_index += 1;
 							continue;
 						} else {
+							
 							$new_val = $_POST[$row_index];
 							
 							if(empty($new_val)) {
-								echo "Error.";
+								echo "Error, the new value for the field " . $property->name . " is empty.";
 							} else {
 								if($row_index == $col_size) {
 									$update_query = $update_query . $property->name . '=' . "'$new_val' ";

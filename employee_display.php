@@ -1,3 +1,11 @@
+<!--
+
+Code is produced and written by Joshua Crotts. This project is for
+CSC - 471: Principles of Database Systems for the Spring 2020 semester
+at the University of North Carolina at Greensboro.
+
+-->
+
 <?php
 	require 'config.php';
 ?>
@@ -28,7 +36,7 @@
 			}
 		</style>
 	</head>
-	<body style="background-color: #d8d8d8;">
+	<body style="background-color: #a9a9a9;">
 		<div id="main-wrapper">
 			<center>
 				<h2>View Employee Records</h2>
@@ -51,7 +59,7 @@
 							}
 						?>
 					</select>  
-					<input type="submit" name="submit_table", value="Select" />
+					<input type="submit" name="submit_table", value="Select" /><br><br>
 				</form>
 			</center>
 			

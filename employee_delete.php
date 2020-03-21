@@ -1,3 +1,11 @@
+<!--
+
+Code is produced and written by Joshua Crotts. This project is for
+CSC - 471: Principles of Database Systems for the Spring 2020 semester
+at the University of North Carolina at Greensboro.
+
+-->
+
 <?php
 	require 'config.php';
 ?>
