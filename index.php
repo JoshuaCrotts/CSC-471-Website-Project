@@ -24,7 +24,6 @@ at the University of North Carolina at Greensboro.
 				<img src="res/title_image.png" class="uncg"/><br>
 				<input type="submit" id="add_button" value="Add To Database" onClick="document.location.href='employee_insert.php'"/><br>
 				<input type="submit" id="update_button" value="Update Database" onClick="document.location.href='employee_update.php'"/><br>
-				<input type="submit" id="delete_button" value="Delete From Database" onClick="document.location.href='employee_delete.php'"/><br>
 				<input type="submit" id="display_button" value="View All Data" onClick="document.location.href='employee_display.php'"/><br>
 			</center>
 		</div>

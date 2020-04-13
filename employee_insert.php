@@ -5,21 +5,89 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Login Page</title>
+      <title>Add To Database</title>
       <!--<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">-->
       <link rel="stylesheet" href="css/styles.css">
       <meta charset="utf-8">
+	  <style type="text/css">
+	  .new_p_style {
+	      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	  }
+	    .select_table_button {
+			box-shadow: 0px 10px 14px -7px #276873;
+			background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+			background-color:#599bb3;
+			border-radius:0px;
+			display:inline-block;
+			cursor:pointer;
+			color:#ffffff;
+			font-family:Arial;
+			font-size:12px;
+			font-weight:bold;
+			padding:2px 10px;
+			text-decoration:none;
+			text-shadow:0px 1px 0px #3d768a;
+		}
+		.select_table_button:hover {
+			background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+			background-color:#408c99;
+		}
+		.select_table_button:active {
+			position:relative;
+			top:1px;
+		}
+		.select-css {
+			font-size: 12px;
+			font-family: sans-serif;
+			font-weight: 700;
+			color: #444;
+			line-height: 1.3;
+			padding: .3em 1.4em .5em .8em;
+			width: 16%;
+			max-width: 100%;
+			box-sizing: border-box;
+			margin: 0;
+			border: 1px solid #aaa;
+			box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+			border-radius: .5em;
+			-moz-appearance: none;
+			-webkit-appearance: none;
+			appearance: none;
+			background-color: #fff;
+			background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+			  linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+			background-repeat: no-repeat, repeat;
+			background-position: right .7em top 50%, 0 0;
+			background-size: .65em auto, 100%;
+		}
+		.select-css::-ms-expand {
+			display: none;
+		}
+		.select-css:hover {
+			border-color: #888;
+		}
+		.select-css:focus {
+			border-color: #aaa;
+			box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+			box-shadow: 0 0 0 3px -moz-mac-focusring;
+			color: #222;
+			outline: none;
+		}
+		.select-css option {
+			font-weight:normal;
+		}
+	  </style>
    </head>
    <body style="background-color:#7f8c8d;">
       <div id="main-wrapper">
          <center>
-            <h2>Employee Entry Form</h2>
+            <h2>Data Entry Form</h2>
             <img src="res/title_image.png" action="employee_insert.php" class="uncg"/>
          </center>
          <center>
-            <p>Select a table you want to insert into.</p>
+            <p class="new_p_style">Select a table you want to insert into.</p>
             <form action="employee_insert.php" method="post">
-               <select name="table_select" id="table_select">
+               <select class="select-css" name="table_select" id="table_select">
                   <option value="">--- Select ---</option>
                   <option value="Employee">Employees</option>
                   <option value="SalaryEmp">Salaried Employees</option>
@@ -30,7 +98,7 @@
                   <option value="Project">Projects</option>
                   <option value="Works">Works In Relationship</option>
                </select>
-               <input type="submit" name="submit_table", value="Select" />
+               <input type="submit" class="select_table_button" name="submit_table", value="Select" />
             </form>
          </center>
          <?php
@@ -72,7 +140,7 @@
             	echo "</center>";
             }
             ?>
-         <?php
+			<?php
             if(isset($_POST['submit_btn'])) {
             	$table_name = $_SESSION['table_name'];
 				
