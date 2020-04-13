@@ -125,9 +125,9 @@
 			cursor:pointer;
 			color:#333333;
 			font-family:Arial;
-			font-size:15px;
+			font-size:13px;
 			font-weight:bold;
-			padding:6px 24px;
+			padding:2px 10px;
 			text-decoration:none;
 			text-shadow:0px 1px 0px #ffee66;
 		}
@@ -211,14 +211,13 @@
             		echo "</tbody></table></form>";
             		
             	} else {
-            		echo "ERROR";
+            		echo '<script type="text/javascript"> alert("Error: did you try to order by without selecting an attribute?") </script>';
             	}
             }
             ?>
          <?
             if(isset($_POST['submit_table'])) {
             	// TODO: Prepared statement tf out of this.
-            	
             	if(!$_POST['table_select']) {
             		echo '<script type="text/javascript"> alert("You have to select a table!") </script>';
             	} else {
@@ -226,7 +225,7 @@
             		$table_name = $_SESSION['table_name'];
             		
             		echo "<form method='post'>";
-            		echo "<center><input type='submit' name='order_by_button' value='Order By' readonly/></center>";
+            		echo "<center><input type='submit' class='order_by_button_id' name='order_by_button' value='Order By' readonly/></center>";
             		echo "<br>";
             		
             		// We want the col names first so we can order by the first field.
